@@ -11,7 +11,7 @@ setup(
     description="Async Python bindings to the Syncthing REST interface",
     url="https://github.com/zhulik/aiosyncthing",
     license="The MIT License",
-    install_requires=["aiohttp==3.6.1"],
+    install_requires=["aiohttp==3.6.1", "yarl=1.5.0"],
     packages=["aiosyncthing"],
     package_dir={"aiosyncthing": "aiosyncthing"},
     include_package_data=True,

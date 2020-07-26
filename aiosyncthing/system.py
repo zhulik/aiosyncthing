@@ -11,7 +11,8 @@ class System:
         self._api = api
 
     async def ping(self):
-        """Initialize the client."""
+        """Checks server availability."""
+
         try:
             result = await self._api.request("/rest/system/ping")
             if (
@@ -22,3 +23,11 @@ class System:
                 raise PingError
         except Exception as error:
             raise PingError from error
+
+    async def config(self):
+        """Get server config."""
+        return await self._api.request("/rest/system/config")
+
+    async def status(self):
+        """Get server config."""
+        return await self._api.request("/rest/system/status")

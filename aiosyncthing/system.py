@@ -11,8 +11,7 @@ class System:
         self._api = api
 
     async def ping(self):
-        """Checks server availability."""
-
+        """Check server availability."""
         try:
             result = await self._api.request("/rest/system/ping")
             if (

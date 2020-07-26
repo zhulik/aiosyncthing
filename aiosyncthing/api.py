@@ -45,12 +45,12 @@ class API:
             self._session = aiohttp.ClientSession(loop=self._loop)
             self._close_session = True
 
-    async def request(self, uri, data=None, method="GET"):
+    async def request(self, uri, params=None, data=None, method="GET"):
         """Perform request."""
         with async_timeout.timeout(self._timeout):
             response = await self._session.request(
                 method,
-                self._url.join(URL(uri)),
+                self._url.join(URL(uri)) % params,
                 json=data,
                 headers={"Accept": "application/json", "X-API-Key": self._api_key,},
             )

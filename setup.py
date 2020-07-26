@@ -5,7 +5,7 @@ from setuptools import setup
 
 setup(
     name="aiosyncthing",
-    version="2.4.2",
+    version="0.1.0",
     author="Gleb Sinyavskiy",
     author_email="zhulik.gleb@gmail.com",
     description="Asynchronous Python client for the Syncthing REST API",

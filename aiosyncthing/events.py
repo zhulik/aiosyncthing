@@ -12,7 +12,6 @@ class Events:
         """Initialize the client."""
         self._last_seen_id = 0
         self._api = api
-        self._listening = True
 
     @property
     def last_seen_id(self):
@@ -23,7 +22,7 @@ class Events:
         """Listen to events."""
         self._last_seen_id = 0
 
-        while self._listening:
+        while True:
             try:
                 events = await self._api.raw_request(
                     "/rest/events", params={"since": self._last_seen_id}

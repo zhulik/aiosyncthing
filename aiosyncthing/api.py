@@ -50,6 +50,7 @@ class API:
             json=data,
             headers={"Accept": "application/json", "X-API-Key": self._api_key,},
             timeout=self._timeout,
+            verify_ssl=self._verify_ssl,
         )
         response.raise_for_status()
         return await response.json()

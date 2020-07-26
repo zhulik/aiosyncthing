@@ -13,7 +13,7 @@ from .exceptions import SSLCertFileNotFound, SyncthingError
 class API:
     """Low level client."""
 
-    DEFAULT_TIMEOUT = 60
+    DEFAULT_TIMEOUT = 10
 
     def __init__(
         self,

@@ -2,6 +2,7 @@
 
 from .api import API
 from .database import Database
+from .events import Events
 from .system import System
 
 
@@ -24,6 +25,11 @@ class Syncthing:
     def database(self):
         """Get database api."""
         return self._database
+
+    @property
+    def events(self):
+        """Get events api."""
+        return Events(self._api)
 
     async def close(self):
         """Close open client session."""

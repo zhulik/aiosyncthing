@@ -13,7 +13,7 @@ class System:
     async def ping(self):
         """Check server availability."""
         try:
-            result = await self._api.request("/rest/system/ping")
+            result = await self._api.raw_request("/rest/system/ping")
             if (
                 not isinstance(result, dict)
                 or "ping" not in result

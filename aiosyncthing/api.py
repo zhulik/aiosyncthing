@@ -7,7 +7,7 @@ import aiohttp
 import async_timeout
 from yarl import URL
 
-from .exceptions import SSLCertFileNotFound
+from .exceptions import SSLCertFileNotFound, SyncthingError
 
 
 class API:
@@ -45,7 +45,14 @@ class API:
             self._session = aiohttp.ClientSession(loop=self._loop)
             self._close_session = True
 
-    async def request(self, uri, params=None, data=None, method="GET"):
+    async def request(self, *args, **kwargs):
+        """Perform request with error wrapping."""
+        try:
+            return await self.raw_request(*args, **kwargs)
+        except Exception as error:
+            raise SyncthingError from error
+
+    async def raw_request(self, uri, params=None, data=None, method="GET"):
         """Perform request."""
         with async_timeout.timeout(self._timeout):
             response = await self._session.request(
@@ -58,6 +65,6 @@ class API:
             return await response.json()
 
     async def close(self):
-        """Close open client session."""
+        """Perform request without error wrapping."""
         if self._session and self._close_session:
             await self._session.close()

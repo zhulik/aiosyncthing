@@ -1,15 +1,17 @@
+"""Low level client for the Syncthing REST API."""
+
+import asyncio
 import os
 
 import aiohttp
-import asyncio
 import async_timeout
-
 from yarl import URL
 
 from .exceptions import SSLCertFileNotFound
 
 
 class API:
+    """Low level client."""
 
     DEFAULT_TIMEOUT = 60
 
@@ -23,6 +25,7 @@ class API:
         loop=None,
         session=None,
     ):
+        """Initialize the client."""
         self._api_key = api_key
         self._url = URL(url)
         self._timeout = timeout
@@ -30,7 +33,7 @@ class API:
         self._ssl_cert_file = ssl_cert_file
 
         if ssl_cert_file:
-            if not os.path.ifile(ssl_cert_file):
+            if not os.path.isfile(ssl_cert_file):
                 raise SSLCertFileNotFound(
                     "ssl_cert_file does not exist at location, %s" % ssl_cert_file
                 )
@@ -43,6 +46,7 @@ class API:
             self._close_session = True
 
     async def request(self, uri, data=None, method="GET"):
+        """Perform request."""
         with async_timeout.timeout(self._timeout):
             response = await self._session.request(
                 method,

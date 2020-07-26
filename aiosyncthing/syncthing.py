@@ -15,6 +15,7 @@ class Syncthing:
 
         self._system = System(self._api)
         self._database = Database(self._api)
+        self._events = Events(self._api)
 
     @property
     def system(self):
@@ -29,7 +30,7 @@ class Syncthing:
     @property
     def events(self):
         """Get events api."""
-        return Events(self._api)
+        return self._events
 
     async def close(self):
         """Close open client session."""

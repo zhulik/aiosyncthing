@@ -30,6 +30,7 @@ class API:
 
         self._loop = loop or asyncio.get_event_loop()
         self._session = session
+        self._close_session = False
 
         if self._session is None:
             self._session = aiohttp.ClientSession(loop=self._loop)
@@ -44,16 +45,16 @@ class API:
 
     async def raw_request(self, uri, params=None, data=None, method="GET"):
         """Perform request."""
-        response = await self._session.request(
+        async with self._session.request(
             method,
             self._url.join(URL(uri)) % params,
             json=data,
             headers={"Accept": "application/json", "X-API-Key": self._api_key,},
             timeout=self._timeout,
             verify_ssl=self._verify_ssl,
-        )
-        response.raise_for_status()
-        return await response.json()
+        ) as response:
+            response.raise_for_status()
+            return await response.json()
 
     async def close(self):
         """Perform request without error wrapping."""

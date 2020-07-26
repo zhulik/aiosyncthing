@@ -4,7 +4,6 @@ import asyncio
 import os
 
 import aiohttp
-import async_timeout
 from yarl import URL
 
 from .exceptions import SSLCertFileNotFound, SyncthingError
@@ -28,7 +27,7 @@ class API:
         """Initialize the client."""
         self._api_key = api_key
         self._url = URL(url)
-        self._timeout = timeout
+        self._timeout = aiohttp.ClientTimeout(total=timeout)
         self._verify_ssl = verify_ssl
         self._ssl_cert_file = ssl_cert_file
 
@@ -54,15 +53,15 @@ class API:
 
     async def raw_request(self, uri, params=None, data=None, method="GET"):
         """Perform request."""
-        with async_timeout.timeout(self._timeout):
-            response = await self._session.request(
-                method,
-                self._url.join(URL(uri)) % params,
-                json=data,
-                headers={"Accept": "application/json", "X-API-Key": self._api_key,},
-            )
-            response.raise_for_status()
-            return await response.json()
+        response = await self._session.request(
+            method,
+            self._url.join(URL(uri)) % params,
+            json=data,
+            headers={"Accept": "application/json", "X-API-Key": self._api_key,},
+            timeout=self._timeout,
+        )
+        response.raise_for_status()
+        return await response.json()
 
     async def close(self):
         """Perform request without error wrapping."""

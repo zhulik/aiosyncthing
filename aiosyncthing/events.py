@@ -21,6 +21,8 @@ class Events:
 
     async def listen(self):
         """Listen to events."""
+        self._last_seen_id = 0
+
         while self._listening:
             try:
                 events = await self._api.raw_request(
@@ -30,7 +32,6 @@ class Events:
                     yield event
                 self._last_seen_id = events[-1]["id"]
             except asyncio.TimeoutError:
-                print("TIMEOUT!")
                 continue
             except asyncio.CancelledError:
                 return

@@ -57,6 +57,6 @@ class API:
             return await response.json()
 
     async def close(self):
-        """Perform request without error wrapping."""
+        """Close the session."""
         if self._session and self._close_session:
             await self._session.close()

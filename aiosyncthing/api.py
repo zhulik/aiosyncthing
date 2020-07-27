@@ -47,7 +47,7 @@ class API:
         """Perform request."""
         async with self._session.request(
             method,
-            self._url.join(URL(uri)) % params,
+            self._url.join(URL(uri)).update_query(params),
             json=data,
             headers={"Accept": "application/json", "X-API-Key": self._api_key,},
             timeout=self._timeout,

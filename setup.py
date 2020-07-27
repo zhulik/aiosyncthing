@@ -23,10 +23,11 @@ setup(
     zip_safe=True,
     keywords="syncthing,sync,rest,backup,api,aio,async,await",
     classifiers=[
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "Natural Language :: English",
         "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Topic :: System :: Archiving :: Mirroring",

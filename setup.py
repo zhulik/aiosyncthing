@@ -3,13 +3,16 @@
 
 from setuptools import setup
 
+with open("README.md", "r") as f:
+    readme = f.read()
+
 setup(
     name="aiosyncthing",
-    version="0.2.0",
+    version="0.2.1",
     author="Gleb Sinyavskiy",
     author_email="zhulik.gleb@gmail.com",
     description="Asynchronous Python client for the Syncthing REST API",
-    long_description="Asynchronous Python client for the Syncthing REST API",
+    long_description=readme,
     long_description_content_type="text/markdown",
     url="https://github.com/zhulik/aiosyncthing",
     license="The MIT License",
@@ -20,10 +23,11 @@ setup(
     zip_safe=True,
     keywords="syncthing,sync,rest,backup,api,aio,async,await",
     classifiers=[
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "Natural Language :: English",
         "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Topic :: System :: Archiving :: Mirroring",

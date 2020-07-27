@@ -8,7 +8,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="aiosyncthing",
-    version="0.2.1",
+    version="0.2.2",
     author="Gleb Sinyavskiy",
     author_email="zhulik.gleb@gmail.com",
     description="Asynchronous Python client for the Syncthing REST API",
@@ -16,7 +16,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/zhulik/aiosyncthing",
     license="The MIT License",
-    install_requires=["aiohttp==3.6.1", "yarl==1.5.0"],
+    install_requires=["aiohttp==3.6.1", "yarl==1.4.2"],
     packages=["aiosyncthing"],
     package_dir={"aiosyncthing": "aiosyncthing"},
     include_package_data=True,

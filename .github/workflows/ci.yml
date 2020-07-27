@@ -63,7 +63,7 @@
             pip install -r requirements_dev.txt
             pip install -r requirements.txt
         - name: Build the package
-          run: python setup.py sdist bdist_whee
+          run: python setup.py sdist bdist_wheel
         - name: Publish the package
           uses: pypa/gh-action-pypi-publish@master
 

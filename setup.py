@@ -9,6 +9,8 @@ setup(
     author="Gleb Sinyavskiy",
     author_email="zhulik.gleb@gmail.com",
     description="Asynchronous Python client for the Syncthing REST API",
+    long_description="Asynchronous Python client for the Syncthing REST API",
+    long_description_content_type="text/markdown",
     url="https://github.com/zhulik/aiosyncthing",
     license="The MIT License",
     install_requires=["aiohttp==3.6.1", "yarl==1.5.0"],

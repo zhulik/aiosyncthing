@@ -58,14 +58,14 @@ await client.system.ping()
 ```
 
 #### [config](https://docs.syncthing.net/rest/system-config-get.html)
-Returns a hash with the server config or raises `syncthing.exceptions.SyncthingError`
+Returns a dict with the server config or raises `syncthing.exceptions.SyncthingError`
 
 ```python
 await client.system.config()
 ```
 
 #### [status](https://docs.syncthing.net/rest/system-status-get.html)
-Returns a hash with the server status or raises `syncthing.exceptions.SyncthingError`
+Returns a dict with the server status or raises `syncthing.exceptions.SyncthingError`
 
 ```python
 await client.system.status()
@@ -75,7 +75,7 @@ await client.system.status()
 Provides access to the [Database Endpoints](https://docs.syncthing.net/dev/rest.html#database-endpoints)
 
 #### [status](https://docs.syncthing.net/rest/db-status-get.html)
-Returns a hash with the folder status or raises `syncthing.exceptions.SyncthingError`
+Returns a dict with the folder status or raises `syncthing.exceptions.SyncthingError`
 
 ```python
 await client.database.status(folder_id) # eg: 'GXWxf-3zgnU'
@@ -108,7 +108,7 @@ async for event in client.events.listen():
 
 MIT License
 
-Copyright (c) 2019 Gleb Sinyavskiy
+Copyright (c) 2020 Gleb Sinyavskiy
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -46,6 +46,8 @@ Syncthing is the entrypoint class, it acts as an async context manger and provid
     )...
 ```
 
+In case if the api_key is invalid, `aiosyncthing.exceptions.SyncthingError` will be raised on attempt to perform any request except `ping()`. This one only raises `syncthing.exceptions.PingError`.
+
 ### System namespace
 
 Provides access to the [System Endpoints](https://docs.syncthing.net/dev/rest.html#system-endpoints)
@@ -69,6 +71,13 @@ Returns a dict with the server status or raises `syncthing.exceptions.SyncthingE
 
 ```python
 await client.system.status()
+```
+
+#### [version](https://docs.syncthing.net/rest/system-version-get.html)
+Returns a dict with the server version or raises `syncthing.exceptions.SyncthingError`
+
+```python
+await client.system.version()
 ```
 
 ### Database namespace

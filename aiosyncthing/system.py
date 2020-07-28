@@ -30,3 +30,7 @@ class System:
     async def status(self):
         """Get server config."""
         return await self._api.request("/rest/system/status")
+
+    async def version(self):
+        """Get server versipn."""
+        return await self._api.request("/rest/system/version")

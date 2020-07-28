@@ -41,8 +41,9 @@ class API:
         try:
             return await self.raw_request(*args, **kwargs)
         except aiohttp.client_exceptions.ClientResponseError as error:
-            if error.status == 401:
+            if error.status in [401, 403]:
                 raise UnauthorizedError from error
+            raise error
         except Exception as error:
             raise SyncthingError from error
 

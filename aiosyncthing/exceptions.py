@@ -6,4 +6,8 @@ class SyncthingError(Exception):
 
 
 class PingError(SyncthingError):
-    """When server does not respond to ping."""
+    """When the server does not respond to ping."""
+
+
+class UnauthorizedError(SyncthingError):
+    """When the server does not accept the API token."""

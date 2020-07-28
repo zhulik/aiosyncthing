@@ -5,7 +5,7 @@ import asyncio
 import aiohttp
 from yarl import URL
 
-from .exceptions import SyncthingError
+from .exceptions import SyncthingError, UnauthorizedError
 
 
 class API:
@@ -40,6 +40,9 @@ class API:
         """Perform request with error wrapping."""
         try:
             return await self.raw_request(*args, **kwargs)
+        except aiohttp.client_exceptions.ClientResponseError as error:
+            if error.status == 401:
+                raise UnauthorizedError from error
         except Exception as error:
             raise SyncthingError from error
 

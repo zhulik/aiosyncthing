@@ -6,6 +6,7 @@ scratch.py
 console.py
 .pypirc
 docs/build
+.vscode/
 
 
 # Byte-compiled / optimized / DLL files

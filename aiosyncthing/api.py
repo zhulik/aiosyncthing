@@ -43,7 +43,7 @@ class API:
         except aiohttp.client_exceptions.ClientResponseError as error:
             if error.status in [401, 403]:
                 raise UnauthorizedError from error
-            raise error
+            raise SyncthingError from error
         except Exception as error:
             raise SyncthingError from error
 

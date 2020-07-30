@@ -1,9 +1,11 @@
 # aiosyncthing
 
+![Continuous Integration](https://github.com/zhulik/aiosyncthing/workflows/Continuous%20Integration/badge.svg?branch=master)
+
 Asynchronous Python client for the [Syncthing](https://syncthing.net/) [REST API](https://docs.syncthing.net/dev/rest.html).
 
 Inspired by [python-syncthing](https://github.com/blakev/python-syncthing),
-some snippets are copied from [python-fumis](https://github.com/frenck/python-fumis)
+some snippets were copied from [python-fumis](https://github.com/frenck/python-fumis)
 
 NOTE: The package is in active development. *Not all features of the API are implemented.*
 
@@ -30,14 +32,14 @@ if __name__ == "__main__":
 
 ### Syncthing
 
-Syncthing is the entrypoint class, it acts as an async context manger and provides access to endpoint namespaces.
+Syncthing is the entrypoint class, it acts as an async context manager and provides access to endpoint namespaces.
 
 #### Initialization
 
 ```python
     def __init__(
         self,
-        api_key, # your API Ley
+        api_key, # your API Key
         url="http://127.0.0.1:8384", # A base URL of the server, https://syncthing.example.com:443/something is also possible
         timeout=DEFAULT_TIMEOUT, # Timeout in seconds
         verify_ssl=True, # Perform SSL verification
@@ -46,7 +48,7 @@ Syncthing is the entrypoint class, it acts as an async context manger and provid
     )...
 ```
 
-In case if the api_key is invalid, `aiosyncthing.exceptions.SyncthingError` will be raised on attempt to perform any request except `ping()`. This one only raises `syncthing.exceptions.PingError`.
+In case if the api_key is invalid, `aiosyncthing.exceptions.SyncthingError` will be raised on attempt to perform any request except `client.system.ping()`, this one only raises `aiosyncthing.exceptions.PingError`.
 
 ### System namespace
 

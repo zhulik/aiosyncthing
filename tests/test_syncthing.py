@@ -1,15 +1,23 @@
-"""Tests for Syncthing."""
+"""Tests for System."""
 
+import aiosyncthing
 import pytest
-from aioresponses import aioresponses
-from aiosyncthing import Syncthing
+from expects import be_a, expect
 
 
 @pytest.mark.asyncio
-async def test_ping():
-    """Tests."""
-    with aioresponses() as m:
-        m.get("http://127.0.0.1:8384/rest/system/ping", payload={"ping": "pong"})
+def test_database(syncthing_client):
+    """Test."""
+    expect(syncthing_client.database).to(be_a(aiosyncthing.Database))
 
-        async with Syncthing("token") as client:
-            await client.system.ping()
+
+@pytest.mark.asyncio
+def test_system(syncthing_client):
+    """Test."""
+    expect(syncthing_client.system).to(be_a(aiosyncthing.System))
+
+
+@pytest.mark.asyncio
+def test_events(syncthing_client):
+    """Test."""
+    expect(syncthing_client.events).to(be_a(aiosyncthing.Events))

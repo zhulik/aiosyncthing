@@ -19,7 +19,7 @@ persistent=yes
 load-plugins=
 
 # Use multiple processes to speed up Pylint.
-jobs=1
+jobs=4
 
 # Allow loading of arbitrary C extensions. Extensions are imported into the
 # active Python interpreter and may run arbitrary code.
@@ -53,23 +53,9 @@ confidence=
 # --disable=W"
 
 disable=
-    attribute-defined-outside-init,
-    duplicate-code,
-    fixme,
     import-error,
     invalid-name,
-    missing-docstring,
-    protected-access,
     too-few-public-methods,
-    too-many-arguments,
-    too-many-branches,
-    too-many-instance-attributes,
-    too-many-lines,
-    too-many-locals,
-    too-many-public-methods,
-    too-many-return-statements,
-    too-many-statements,
-    unnecessary-pass,
     # handled by black
     format
 

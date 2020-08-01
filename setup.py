@@ -8,7 +8,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="aiosyncthing",
-    version="0.3.4",
+    version="0.3.5",
     author="Gleb Sinyavskiy",
     author_email="zhulik.gleb@gmail.com",
     description="Asynchronous Python client for the Syncthing REST API",

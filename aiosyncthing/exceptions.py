@@ -11,3 +11,7 @@ class PingError(SyncthingError):
 
 class UnauthorizedError(SyncthingError):
     """When the server does not accept the API token."""
+
+
+class UnknownFolder(SyncthingError):
+    """When the server cannot find folder by id."""

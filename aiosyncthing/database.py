@@ -1,5 +1,9 @@
 """Entrypoint for the database Syncthing REST API."""
 
+import aiohttp
+
+from .exceptions import SyncthingError, UnknownFolder
+
 
 class Database:
     """Entrypoint class for the database Syncthing REST API."""
@@ -10,4 +14,13 @@ class Database:
 
     async def status(self, folder_id):
         """Get folder status."""
-        return await self._api.request("/rest/db/status", params={"folder": folder_id})
+        try:
+            return await self._api.request(
+                "/rest/db/status", params={"folder": folder_id}
+            )
+        except SyncthingError as error:
+            cause = error.__cause__
+            if isinstance(cause, aiohttp.client_exceptions.ClientResponseError):
+                if cause.status == 404:  # pylint: disable=no-member
+                    raise UnknownFolder
+            raise error

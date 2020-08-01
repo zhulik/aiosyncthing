@@ -1,6 +1,7 @@
 """Tests for System."""
 
 import pytest
+from aiosyncthing.exceptions import UnknownFolder
 from expects import equal, expect
 
 # pylint: disable=redefined-outer-name
@@ -22,3 +23,13 @@ async def test_status_happy(database, aioresponses):
     expect(await database.status("folder-id")).to(
         equal({"errors": 0, "globalBytes": 0})
     )
+
+
+@pytest.mark.asyncio
+async def test_status_unknown_folder(database, aioresponses):
+    """Test happy path."""
+    aioresponses.get(
+        "http://127.0.0.1:8384/rest/db/status?folder=folder-id", status=404
+    )
+    with pytest.raises(UnknownFolder):
+        await database.status("folder-id")

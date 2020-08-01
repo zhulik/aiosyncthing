@@ -8,9 +8,8 @@ from aiosyncthing import Syncthing
 @pytest.fixture
 async def syncthing_client():
     """Yield a Syncthing client."""
-    client = Syncthing("token")
-    yield client
-    await client.close()
+    async with Syncthing("token") as client:
+        yield client
 
 
 @pytest.fixture

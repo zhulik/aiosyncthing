@@ -105,7 +105,7 @@ Provides access to the [Database Endpoints](https://docs.syncthing.net/dev/rest.
 
 #### [status](https://docs.syncthing.net/rest/db-status-get.html)
 Returns a dict with the folder status or raises `syncthing.exceptions.SyncthingError`. If the folder id is unknown to
-the server, `syncthing.exceptions.Error` will be raised.
+the server, `syncthing.exceptions.UnknownFolderError` will be raised.
 
 ```python
 await client.database.status(folder_id) # eg: 'GXWxf-3zgnU'

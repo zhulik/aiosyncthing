@@ -13,5 +13,13 @@ class UnauthorizedError(SyncthingError):
     """When the server does not accept the API token."""
 
 
-class UnknownFolder(SyncthingError):
-    """When the server cannot find folder by id."""
+class NotFoundError(SyncthingError):
+    """When the server responds with 404."""
+
+
+class UnknownFolderError(NotFoundError):
+    """When the server cannot find a folder by id."""
+
+
+class UnknownDeviceError(NotFoundError):
+    """When the server cannot find a device by id."""

@@ -1,6 +1,6 @@
 """Entrypoint for the system Syncthing REST API."""
 
-from .exceptions import PingError
+from .exceptions import NotFoundError, PingError, UnknownDeviceError
 
 
 class System:
@@ -32,5 +32,31 @@ class System:
         return await self._api.request("/rest/system/status")
 
     async def version(self):
-        """Get server versipn."""
+        """Get server version."""
         return await self._api.request("/rest/system/version")
+
+    async def pause(self, device_id=None):
+        """Pause synchronization."""
+        try:
+            await self._api.request(
+                "/rest/system/pause", method="POST", params=device_params(device_id)
+            )
+        except NotFoundError as error:
+            raise UnknownDeviceError from error
+
+    async def resume(self, device_id=None):
+        """Resume synchronization."""
+        try:
+            await self._api.request(
+                "/rest/system/resume", method="POST", params=device_params(device_id)
+            )
+        except NotFoundError as error:
+            raise UnknownDeviceError from error
+
+
+def device_params(device_id):
+    """Build params hash from the device_id."""
+    params = {}
+    if device_id is not None:
+        params["device"] = device_id
+    return params

@@ -2,7 +2,7 @@
 
 import aiohttp
 
-from .exceptions import SyncthingError, UnknownFolder
+from .exceptions import SyncthingError, UnknownFolderError
 
 
 class Database:
@@ -22,5 +22,5 @@ class Database:
             cause = error.__cause__
             if isinstance(cause, aiohttp.client_exceptions.ClientResponseError):
                 if cause.status == 404:  # pylint: disable=no-member
-                    raise UnknownFolder
+                    raise UnknownFolderError
             raise error

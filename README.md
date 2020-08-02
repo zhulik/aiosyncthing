@@ -88,7 +88,7 @@ in case if passed devices is unknown to the server, `syncthing.exceptions.Unknow
 
 ```python
 await client.system.pause() # pause all
-await client.system.pause("device_id") # pause one device
+await client.system.pause(device_id) # eg: 'MTLMICV-YE72URC-NF4LBO3-2LVPTFZ-LLCZHEZ-2F3OEJS-R6CWZVE-7VXHFQA"
 ```
 
 #### [resume](https://docs.syncthing.net/rest/system-resume-post.html)
@@ -97,7 +97,7 @@ in case if passed devices is unknown to the server, `syncthing.exceptions.Unknow
 
 ```python
 await client.system.resume() # resume all
-await client.system.resume("device_id") # resume one device
+await client.system.resume(device_id) # eg: 'MTLMICV-YE72URC-NF4LBO3-2LVPTFZ-LLCZHEZ-2F3OEJS-R6CWZVE-7VXHFQA"
 ```
 
 ### Database namespace

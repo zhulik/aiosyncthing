@@ -84,7 +84,7 @@ await client.system.version()
 
 #### [pause](https://docs.syncthing.net/rest/system-pause-post.html)
 Pauses synchronization with all devices or with the selected device or raises `syncthing.exceptions.SyncthingError`,
-in case if passed devices is unknown to the server, `syncthing.exceptions.UnknownDevice` will be raised. Always returns `None`
+in case if passed devices is unknown to the server, `syncthing.exceptions.UnknownDeviceError` will be raised. Always returns `None`
 
 ```python
 await client.system.pause() # pause all
@@ -93,7 +93,7 @@ await client.system.pause("device_id") # pause one device
 
 #### [resume](https://docs.syncthing.net/rest/system-resume-post.html)
 Resumes synchronization with all devices or with a selected device or raises `syncthing.exceptions.SyncthingError`,
-in case if passed devices is unknown to the server, `syncthing.exceptions.UnknownDevice` will be raised. Always returns `None`
+in case if passed devices is unknown to the server, `syncthing.exceptions.UnknownDeviceError` will be raised. Always returns `None`
 
 ```python
 await client.system.resume() # resume all
@@ -105,7 +105,7 @@ Provides access to the [Database Endpoints](https://docs.syncthing.net/dev/rest.
 
 #### [status](https://docs.syncthing.net/rest/db-status-get.html)
 Returns a dict with the folder status or raises `syncthing.exceptions.SyncthingError`. If the folder id is unknown to
-the server, `syncthing.exceptions.UnknownFolder` will be raised.
+the server, `syncthing.exceptions.Error` will be raised.
 
 ```python
 await client.database.status(folder_id) # eg: 'GXWxf-3zgnU'

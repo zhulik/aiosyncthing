@@ -1,8 +1,6 @@
 """Entrypoint for the system Syncthing REST API."""
 
-import aiohttp
-
-from .exceptions import PingError, SyncthingError, UnknownDevice
+from .exceptions import NotFoundError, PingError, UnknownDeviceError
 
 
 class System:
@@ -44,12 +42,8 @@ class System:
             params["device"] = device_id
         try:
             await self._api.request("/rest/system/pause", method="POST", params=params)
-        except SyncthingError as error:
-            cause = error.__cause__
-            if isinstance(cause, aiohttp.client_exceptions.ClientResponseError):
-                if cause.status == 404:  # pylint: disable=no-member
-                    raise UnknownDevice
-            raise error
+        except NotFoundError as error:
+            raise UnknownDeviceError from error
 
     async def resume(self, device_id=None):
         """Resume synchronization."""
@@ -58,9 +52,5 @@ class System:
             params["device"] = device_id
         try:
             await self._api.request("/rest/system/resume", method="POST", params=params)
-        except SyncthingError as error:
-            cause = error.__cause__
-            if isinstance(cause, aiohttp.client_exceptions.ClientResponseError):
-                if cause.status == 404:  # pylint: disable=no-member
-                    raise UnknownDevice
-            raise error
+        except NotFoundError as error:
+            raise UnknownDeviceError from error

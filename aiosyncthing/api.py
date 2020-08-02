@@ -5,7 +5,7 @@ import asyncio
 import aiohttp
 from yarl import URL
 
-from .exceptions import SyncthingError, UnauthorizedError
+from .exceptions import NotFoundError, SyncthingError, UnauthorizedError
 
 
 class API:
@@ -43,6 +43,8 @@ class API:
         except aiohttp.client_exceptions.ClientResponseError as error:
             if error.status in [401, 403]:
                 raise UnauthorizedError from error
+            if error.status == 404:
+                raise NotFoundError from error
             raise SyncthingError from error
         except Exception as error:
             raise SyncthingError from error

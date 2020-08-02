@@ -5,7 +5,7 @@ from aiosyncthing.exceptions import (
     PingError,
     SyncthingError,
     UnauthorizedError,
-    UnknownDevice,
+    UnknownDeviceError,
 )
 from expects import be_none, equal, expect
 
@@ -158,7 +158,7 @@ async def test_pause_unknown_device(system, aioresponses):
     aioresponses.post(
         "http://127.0.0.1:8384/rest/system/pause?device=device_id", status=404
     )
-    with pytest.raises(UnknownDevice):
+    with pytest.raises(UnknownDeviceError):
         await system.pause("device_id")
 
 
@@ -205,5 +205,5 @@ async def test_resume_unknown_device(system, aioresponses):
     aioresponses.post(
         "http://127.0.0.1:8384/rest/system/resume?device=device_id", status=404
     )
-    with pytest.raises(UnknownDevice):
+    with pytest.raises(UnknownDeviceError):
         await system.resume("device_id")

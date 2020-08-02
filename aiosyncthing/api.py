@@ -58,7 +58,12 @@ class API:
             verify_ssl=self._verify_ssl,
         ) as response:
             response.raise_for_status()
-            return await response.json()
+            if (
+                "Content-Type" in response.headers
+                and "application/json" in response.headers["Content-Type"]
+            ):
+                return await response.json()
+            return await response.read()
 
     async def close(self):
         """Close the session."""

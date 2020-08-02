@@ -1,7 +1,12 @@
 """Tests for System."""
 
 import pytest
-from aiosyncthing.exceptions import PingError, SyncthingError, UnauthorizedError
+from aiosyncthing.exceptions import (
+    PingError,
+    SyncthingError,
+    UnauthorizedError,
+    UnknownDevice,
+)
 from expects import be_none, equal, expect
 
 # pylint: disable=redefined-outer-name
@@ -94,9 +99,7 @@ async def test_status_unknown_exception(system, mocker):
         raise Exception
 
     mocker.patch(
-        # Dataset is in slow.py, but imported to main.py
-        "aiosyncthing.API.raw_request",
-        mock_load,
+        "aiosyncthing.API.raw_request", mock_load,
     )
 
     with pytest.raises(SyncthingError):
@@ -110,3 +113,97 @@ async def test_version_happy(system, aioresponses):
         "http://127.0.0.1:8384/rest/system/version", payload={"version": "v1.7.0"}
     )
     expect(await system.version()).to(equal({"version": "v1.7.0"}))
+
+
+@pytest.mark.asyncio
+async def test_pause_no_arguments_happy(system, aioresponses):
+    """Test happy path."""
+    aioresponses.post(
+        "http://127.0.0.1:8384/rest/system/pause", headers={"Content-Type": ""}
+    )
+    expect(await system.pause()).to(be_none)
+
+
+@pytest.mark.asyncio
+async def test_pause_no_arguments_error(system, aioresponses):
+    """Test error path."""
+    aioresponses.post("http://127.0.0.1:8384/rest/system/pause", status=500)
+    with pytest.raises(SyncthingError):
+        await system.pause()
+
+
+@pytest.mark.asyncio
+async def test_pause_happy(system, aioresponses):
+    """Test happy path."""
+    aioresponses.post(
+        "http://127.0.0.1:8384/rest/system/pause?device=device_id",
+        headers={"Content-Type": ""},
+    )
+    expect(await system.pause("device_id")).to(be_none)
+
+
+@pytest.mark.asyncio
+async def test_pause_error(system, aioresponses):
+    """Test error path."""
+    aioresponses.post(
+        "http://127.0.0.1:8384/rest/system/pause?device=device_id", status=500
+    )
+    with pytest.raises(SyncthingError):
+        await system.pause("device_id")
+
+
+@pytest.mark.asyncio
+async def test_pause_unknown_device(system, aioresponses):
+    """Test error path."""
+    aioresponses.post(
+        "http://127.0.0.1:8384/rest/system/pause?device=device_id", status=404
+    )
+    with pytest.raises(UnknownDevice):
+        await system.pause("device_id")
+
+
+@pytest.mark.asyncio
+async def test_resume_no_arguments_happy(system, aioresponses):
+    """Test happy path."""
+    aioresponses.post(
+        "http://127.0.0.1:8384/rest/system/resume", headers={"Content-Type": ""}
+    )
+    expect(await system.resume()).to(be_none)
+
+
+@pytest.mark.asyncio
+async def test_resume_no_arguments_error(system, aioresponses):
+    """Test error path."""
+    aioresponses.post("http://127.0.0.1:8384/rest/system/resume", status=500)
+    with pytest.raises(SyncthingError):
+        await system.resume()
+
+
+@pytest.mark.asyncio
+async def test_resume_happy(system, aioresponses):
+    """Test happy path."""
+    aioresponses.post(
+        "http://127.0.0.1:8384/rest/system/resume?device=device_id",
+        headers={"Content-Type": ""},
+    )
+    expect(await system.resume("device_id")).to(be_none)
+
+
+@pytest.mark.asyncio
+async def test_resume_error(system, aioresponses):
+    """Test error path."""
+    aioresponses.post(
+        "http://127.0.0.1:8384/rest/system/resume?device=device_id", status=500
+    )
+    with pytest.raises(SyncthingError):
+        await system.resume("device_id")
+
+
+@pytest.mark.asyncio
+async def test_resume_unknown_device(system, aioresponses):
+    """Test error path."""
+    aioresponses.post(
+        "http://127.0.0.1:8384/rest/system/resume?device=device_id", status=404
+    )
+    with pytest.raises(UnknownDevice):
+        await system.resume("device_id")

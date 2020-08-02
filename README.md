@@ -82,6 +82,24 @@ Returns a dict with the server version or raises `syncthing.exceptions.Syncthing
 await client.system.version()
 ```
 
+#### [pause](https://docs.syncthing.net/rest/system-pause-post.html)
+Pauses synchronization with all devices or with the selected device or raises `syncthing.exceptions.SyncthingError`,
+in case if passed devices is unknown to the server, `syncthing.exceptions.UnknownDevice` will be raised. Always returns `None`
+
+```python
+await client.system.pause() # pause all
+await client.system.pause("device_id") # pause one device
+```
+
+#### [resume](https://docs.syncthing.net/rest/system-resume-post.html)
+Resumes synchronization with all devices or with a selected device or raises `syncthing.exceptions.SyncthingError`,
+in case if passed devices is unknown to the server, `syncthing.exceptions.UnknownDevice` will be raised. Always returns `None`
+
+```python
+await client.system.resume() # resume all
+await client.system.resume("device_id") # resume one device
+```
+
 ### Database namespace
 Provides access to the [Database Endpoints](https://docs.syncthing.net/dev/rest.html#database-endpoints)
 

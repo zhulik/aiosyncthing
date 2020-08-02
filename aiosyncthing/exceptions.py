@@ -14,4 +14,8 @@ class UnauthorizedError(SyncthingError):
 
 
 class UnknownFolder(SyncthingError):
-    """When the server cannot find folder by id."""
+    """When the server cannot find a folder by id."""
+
+
+class UnknownDevice(SyncthingError):
+    """When the server cannot find a device by id."""

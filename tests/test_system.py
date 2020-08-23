@@ -1,6 +1,7 @@
 """Tests for System."""
 
 import pytest
+from aiosyncthing import Syncthing
 from aiosyncthing.exceptions import (
     PingError,
     SyncthingError,
@@ -23,6 +24,17 @@ async def test_ping_happy(system, aioresponses):
     """Test happy path."""
     aioresponses.get("http://127.0.0.1:8384/rest/system/ping", payload={"ping": "pong"})
     expect(await system.ping()).to(be_none)
+
+
+@pytest.mark.asyncio
+async def test_ping_with_syncthing_namespaced(aioresponses):
+    """Test happy path."""
+    aioresponses.get(
+        "http://127.0.0.1:8384/syncthing/rest/system/ping", payload={"ping": "pong"}
+    )
+
+    async with Syncthing("token", "http://127.0.0.1:8384/syncthing/") as client:
+        expect(await client.system.ping()).to(be_none)
 
 
 @pytest.mark.asyncio

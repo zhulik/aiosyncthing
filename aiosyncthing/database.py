@@ -16,7 +16,7 @@ class Database:
         """Get folder status."""
         try:
             return await self._api.request(
-                "/rest/db/status", params={"folder": folder_id}
+                "rest/db/status", params={"folder": folder_id}
             )
         except SyncthingError as error:
             cause = error.__cause__

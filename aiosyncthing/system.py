@@ -13,7 +13,7 @@ class System:
     async def ping(self):
         """Check server availability."""
         try:
-            result = await self._api.raw_request("/rest/system/ping")
+            result = await self._api.raw_request("rest/system/ping")
             if (
                 not isinstance(result, dict)
                 or "ping" not in result
@@ -25,21 +25,21 @@ class System:
 
     async def config(self):
         """Get server config."""
-        return await self._api.request("/rest/system/config")
+        return await self._api.request("rest/system/config")
 
     async def status(self):
         """Get server config."""
-        return await self._api.request("/rest/system/status")
+        return await self._api.request("rest/system/status")
 
     async def version(self):
         """Get server version."""
-        return await self._api.request("/rest/system/version")
+        return await self._api.request("rest/system/version")
 
     async def pause(self, device_id=None):
         """Pause synchronization."""
         try:
             await self._api.request(
-                "/rest/system/pause", method="POST", params=device_params(device_id)
+                "rest/system/pause", method="POST", params=device_params(device_id)
             )
         except NotFoundError as error:
             raise UnknownDeviceError from error
@@ -48,7 +48,7 @@ class System:
         """Resume synchronization."""
         try:
             await self._api.request(
-                "/rest/system/resume", method="POST", params=device_params(device_id)
+                "rest/system/resume", method="POST", params=device_params(device_id)
             )
         except NotFoundError as error:
             raise UnknownDeviceError from error

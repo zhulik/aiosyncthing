@@ -18,6 +18,11 @@ class Syncthing:
         self._events = Events(self._api)
 
     @property
+    def url(self):
+        """Get URL."""
+        return self._api.url
+
+    @property
     def system(self):
         """Get system api."""
         return self._system

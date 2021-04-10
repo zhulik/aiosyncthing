@@ -36,6 +36,11 @@ class API:
             self._session = aiohttp.ClientSession(loop=self._loop)
             self._close_session = True
 
+    @property
+    def url(self):
+        """Get URL."""
+        return str(self._url)
+
     async def request(self, *args, **kwargs):
         """Perform request with error wrapping."""
         try:

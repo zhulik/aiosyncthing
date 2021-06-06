@@ -45,6 +45,10 @@ class System:
         except NotFoundError as error:
             raise UnknownDeviceError from error
 
+    async def connections(self):
+        """Get server connections."""
+        return await self._api.request("rest/system/connections")
+
 
 def device_params(device_id):
     """Build params hash from the device_id."""

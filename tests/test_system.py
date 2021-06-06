@@ -196,3 +196,21 @@ async def test_resume_unknown_device(system, aioresponses):
     aioresponses.post("http://127.0.0.1:8384/rest/system/resume?device=device_id", status=404)
     with pytest.raises(UnknownDeviceError):
         await system.resume("device_id")
+
+
+@pytest.mark.asyncio
+async def test_connections_happy(system, aioresponses):
+    """Test happy path."""
+    aioresponses.get(
+        "http://127.0.0.1:8384/rest/system/connections",
+        payload={"total": {"inBytesTotal": 9202826, "outBytesTotal": 16220852785}},
+    )
+    expect(await system.connections()).to(equal({"total": {"inBytesTotal": 9202826, "outBytesTotal": 16220852785}}))
+
+
+@pytest.mark.asyncio
+async def test_connections_error(system, aioresponses):
+    """Test error path."""
+    aioresponses.get("http://127.0.0.1:8384/rest/system/connections", status=500)
+    with pytest.raises(SyncthingError):
+        await system.connections()

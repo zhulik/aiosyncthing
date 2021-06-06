@@ -1,8 +1,9 @@
 """Tests for System."""
 
-import aiosyncthing
 import pytest
 from expects import be_a, equal, expect
+
+import aiosyncthing
 
 
 def test_url(syncthing_client):

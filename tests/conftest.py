@@ -2,6 +2,7 @@
 
 import pytest
 from aioresponses import aioresponses as responses
+
 from aiosyncthing import Syncthing
 
 

@@ -14,11 +14,7 @@ class System:
         """Check server availability."""
         try:
             result = await self._api.raw_request("rest/system/ping")
-            if (
-                not isinstance(result, dict)
-                or "ping" not in result
-                or result["ping"] != "pong"
-            ):
+            if not isinstance(result, dict) or "ping" not in result or result["ping"] != "pong":
                 raise PingError
         except Exception as error:
             raise PingError from error
@@ -38,18 +34,14 @@ class System:
     async def pause(self, device_id=None):
         """Pause synchronization."""
         try:
-            await self._api.request(
-                "rest/system/pause", method="POST", params=device_params(device_id)
-            )
+            await self._api.request("rest/system/pause", method="POST", params=device_params(device_id))
         except NotFoundError as error:
             raise UnknownDeviceError from error
 
     async def resume(self, device_id=None):
         """Resume synchronization."""
         try:
-            await self._api.request(
-                "rest/system/resume", method="POST", params=device_params(device_id)
-            )
+            await self._api.request("rest/system/resume", method="POST", params=device_params(device_id))
         except NotFoundError as error:
             raise UnknownDeviceError from error
 

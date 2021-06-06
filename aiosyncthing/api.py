@@ -13,7 +13,7 @@ class API:
 
     DEFAULT_TIMEOUT = 10
 
-    def __init__(
+    def __init__(  # pylint: disable=too-many-arguments
         self,
         api_key,
         url="http://127.0.0.1:8384",
@@ -60,15 +60,15 @@ class API:
             method,
             self._url.join(URL(uri)).update_query(params),
             json=data,
-            headers={"Accept": "application/json", "X-API-Key": self._api_key,},
+            headers={
+                "Accept": "application/json",
+                "X-API-Key": self._api_key,
+            },
             timeout=self._timeout,
             verify_ssl=self._verify_ssl,
         ) as response:
             response.raise_for_status()
-            if (
-                "Content-Type" in response.headers
-                and "application/json" in response.headers["Content-Type"]
-            ):
+            if "Content-Type" in response.headers and "application/json" in response.headers["Content-Type"]:
                 return await response.json()
             return await response.read()
 

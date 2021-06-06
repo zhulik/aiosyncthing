@@ -3,8 +3,9 @@
 import asyncio
 
 import pytest
-from aiosyncthing.exceptions import SyncthingError
 from expects import be_false, be_true, equal, expect
+
+from aiosyncthing.exceptions import SyncthingError
 
 # pylint: disable=redefined-outer-name
 
@@ -19,10 +20,12 @@ def events(syncthing_client):
 async def test_listen_happy(events, aioresponses):
     """Test happy path."""
     aioresponses.get(
-        "http://127.0.0.1:8384/rest/events?since=0", payload=[{"id": 123}],
+        "http://127.0.0.1:8384/rest/events?since=0",
+        payload=[{"id": 123}],
     )
     aioresponses.get(
-        "http://127.0.0.1:8384/rest/events?since=123", payload=[{"id": 124}],
+        "http://127.0.0.1:8384/rest/events?since=123",
+        payload=[{"id": 124}],
     )
     async for event in events.listen():
         if event["id"] == 123:

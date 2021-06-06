@@ -15,12 +15,10 @@ class Database:
     async def status(self, folder_id):
         """Get folder status."""
         try:
-            return await self._api.request(
-                "rest/db/status", params={"folder": folder_id}
-            )
+            return await self._api.request("rest/db/status", params={"folder": folder_id})
         except SyncthingError as error:
             cause = error.__cause__
             if isinstance(cause, aiohttp.client_exceptions.ClientResponseError):
                 if cause.status == 404:  # pylint: disable=no-member
-                    raise UnknownFolderError
+                    raise UnknownFolderError from error
             raise error

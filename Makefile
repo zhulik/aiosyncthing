@@ -11,10 +11,10 @@ isort:
 	pipenv run isort --check .
 
 flake8:
-	pipenv run flake8 aiophotoprism
+	pipenv run flake8 aiosyncthing
 
 pylint:
-	pipenv run pylint aiophotoprism
+	pipenv run pylint aiosyncthing
 
 lint: pylint flake8 isort black
 

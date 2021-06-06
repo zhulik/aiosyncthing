@@ -35,9 +35,7 @@ class Events:
 
         while self._running:
             try:
-                events = await self._api.raw_request(
-                    "rest/events", params={"since": self._last_seen_id}
-                )
+                events = await self._api.raw_request("rest/events", params={"since": self._last_seen_id})
                 for event in events:
                     yield event
                 self._last_seen_id = events[-1]["id"]

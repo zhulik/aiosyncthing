@@ -22,13 +22,10 @@
               ${{ runner.os }}-pip-
         - name: Install dependencies
           run: |
-            python -m pip install --upgrade pip setuptools wheel
-            pip install -r requirements_test.txt
-            pip install -r requirements_dev.txt
-            pip install -r requirements.txt
-        - name: Run pre-commit on all files
+            python -m pip install --upgrade pip pipenv
+            pipenv sync --dev
           run: |
-            pre-commit run --all-files --show-diff-on-failure
+            make lint
     test:
       name: Python ${{ matrix.python }} on ${{ matrix.os }}
       runs-on: ${{ matrix.os }}-latest
@@ -51,12 +48,10 @@
               ${{ runner.os }}-pip-
         - name: Install dependencies
           run: |
-            python -m pip install --upgrade pip setuptools wheel
-            pip install -r requirements_test.txt
-            pip install -r requirements_dev.txt
-            pip install -r requirements.txt
+            python -m pip install --upgrade pip pipenv
+            pipenv sync --dev
         - name: Pytest with coverage reporting
-          run: pytest --cov=aiosyncthing --cov-report=xml
+          run: make test
     publish:
       name: Publish a Python distribution to PyPI
       runs-on: ubuntu-latest
@@ -77,12 +72,10 @@
               ${{ runner.os }}-pip-
         - name: Install dependencies
           run: |
-            python -m pip install --upgrade pip setuptools wheel
-            pip install -r requirements_test.txt
-            pip install -r requirements_dev.txt
-            pip install -r requirements.txt
+            python -m pip install --upgrade pip pipenv
+            pipenv sync --dev
         - name: Build the package
-          run: python setup.py sdist bdist_wheel
+          run: make dist
         - name: Publish the package
           uses: pypa/gh-action-pypi-publish@master
           with:

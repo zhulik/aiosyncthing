@@ -27,6 +27,10 @@ class System:
         """Get server config."""
         return await self._api.request("rest/system/status")
 
+    async def error(self):
+        """Get server errors."""
+        return await self._api.request("rest/system/error")
+
     async def version(self):
         """Get server version."""
         return await self._api.request("rest/system/version")

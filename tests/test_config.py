@@ -5,7 +5,7 @@ import pytest_asyncio
 from expects import equal, expect
 
 from aiosyncthing import Syncthing
-from aiosyncthing.exceptions import SyncthingError, NotFoundError
+from aiosyncthing.exceptions import NotFoundError, SyncthingError
 
 # pylint: disable=redefined-outer-name
 

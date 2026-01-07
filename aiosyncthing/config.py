@@ -1,5 +1,6 @@
 """Entrypoint for the config Syncthing REST API."""
 
+
 class Config:
     """Entrypoint class for the config Syncthing REST API."""
 

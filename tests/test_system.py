@@ -115,11 +115,11 @@ async def test_error_happy(system, aioresponses):
     """Test happy path."""
     aioresponses.get(
         "http://127.0.0.1:8384/rest/system/error",
-        payload={"errors": [ { "when": "2014-09-18T12:59:26.549953186+02:00", "message": "This is an error string"}]},
+        payload={"errors": [{"when": "2014-09-18T12:59:26.549953186+02:00", "message": "This is an error string"}]},
     )
-    expect(await system.error()).to(equal(
-        {"errors": [ { "when": "2014-09-18T12:59:26.549953186+02:00", "message": "This is an error string"}]}
-    ))
+    expect(await system.error()).to(
+        equal({"errors": [{"when": "2014-09-18T12:59:26.549953186+02:00", "message": "This is an error string"}]})
+    )
 
 
 @pytest.mark.asyncio

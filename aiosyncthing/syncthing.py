@@ -1,10 +1,11 @@
 """Entrypoint for the Syncthing REST API."""
 
 from .api import API
+from .config import Config
 from .database import Database
 from .events import Events
 from .system import System
-from .config import Config
+
 
 class Syncthing:
     """Entrypoint class."""

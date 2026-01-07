@@ -1,7 +1,9 @@
 """Entrypoint for the system Syncthing REST API."""
 
 from deprecated import deprecated
+
 from .exceptions import NotFoundError, PingError, UnknownDeviceError
+
 
 class System:
     """Entrypoint class for the system Syncthing REST API."""

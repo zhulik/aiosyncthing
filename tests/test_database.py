@@ -1,6 +1,7 @@
 """Tests for System."""
 
 import pytest
+import pytest_asyncio
 from expects import equal, expect
 
 from aiosyncthing.exceptions import UnknownFolderError
@@ -8,7 +9,7 @@ from aiosyncthing.exceptions import UnknownFolderError
 # pylint: disable=redefined-outer-name
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def database(syncthing_client):
     """Return database namespace client."""
     return syncthing_client.database

@@ -70,3 +70,25 @@ async def test_listen_cancel(events, mocker):
     )
     async for _ in events.listen():
         pass
+
+
+@pytest.mark.asyncio
+async def test_listen_with_only_current(events, aioresponses):
+    """Test listen for only current events."""
+    aioresponses.get(
+        "http://127.0.0.1:8384/rest/events?since=0",
+        payload=[{"id": 123}],
+    )
+    aioresponses.get(
+        "http://127.0.0.1:8384/rest/events?since=123",
+        payload=[{"id": 124}],
+    )
+    ait = aiter(events.listen(since=123, listen=False))
+    event = await anext(ait)
+    expect(events.last_seen_id).to(equal(123))
+    expect(event["id"]).to(equal(124))
+    with pytest.raises(StopAsyncIteration):
+        await anext(ait)
+
+    expect(events.last_seen_id).to(equal(124))
+    expect(events.running).to(be_false)

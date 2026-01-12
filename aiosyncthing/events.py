@@ -42,6 +42,9 @@ class Events:
                 if not self._running:
                     return
             except asyncio.TimeoutError:
+                await asyncio.sleep(0)
+                if not self._running:
+                    return
                 continue
             except asyncio.CancelledError:
                 return

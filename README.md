@@ -143,9 +143,6 @@ endpoint.
 ```python
 async for event in client.events.listen():
   print(event)
-
-async for event in client.events.listen(since=100, listen=False): # start from ID 100 and exit after all active events are sent
-  print(event)
 ```
 
 ### last_seen_id

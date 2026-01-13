@@ -28,23 +28,18 @@ class Events:
         """Stop listening."""
         self._running = False
 
-    async def listen(self, since=0, listen=True):
+    async def listen(self):
         """Listen to events."""
-        self._last_seen_id = since
-        self._running = listen
+        self._last_seen_id = 0
+        self._running = True
 
-        while True:
+        while self._running:
             try:
                 events = await self._api.raw_request("rest/events", params={"since": self._last_seen_id})
                 for event in events:
                     yield event
                 self._last_seen_id = events[-1]["id"]
-                if not self._running:
-                    return
             except asyncio.TimeoutError:
-                await asyncio.sleep(0)
-                if not self._running:
-                    return
                 continue
             except asyncio.CancelledError:
                 return

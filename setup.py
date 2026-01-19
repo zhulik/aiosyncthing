@@ -8,7 +8,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="aiosyncthing",
-    version="0.7.0",
+    version="0.7.1",
     author="Gleb Sinyavskiy",
     author_email="zhulik.gleb@gmail.com",
     description="Asynchronous Python client for the Syncthing REST API",
@@ -27,9 +27,12 @@ setup(
         "Intended Audience :: Developers",
         "Natural Language :: English",
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
+        "Programming Language :: Python :: 3.15",
         "Topic :: System :: Archiving :: Mirroring",
     ],
 )

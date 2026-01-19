@@ -3,6 +3,7 @@
 import asyncio
 
 import pytest
+import pytest_asyncio
 from expects import be_false, be_true, equal, expect
 
 from aiosyncthing.exceptions import SyncthingError
@@ -10,7 +11,7 @@ from aiosyncthing.exceptions import SyncthingError
 # pylint: disable=redefined-outer-name
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def events(syncthing_client):
     """Return database namespace client."""
     return syncthing_client.events

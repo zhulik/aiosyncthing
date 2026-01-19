@@ -1,5 +1,7 @@
 """Entrypoint for the system Syncthing REST API."""
 
+from deprecated import deprecated
+
 from .exceptions import NotFoundError, PingError, UnknownDeviceError
 
 
@@ -19,6 +21,7 @@ class System:
         except Exception as error:
             raise PingError from error
 
+    @deprecated(reason="Deprecated in syncthing API. Use Config class instead")
     async def config(self):
         """Get server config."""
         return await self._api.request("rest/system/config")
@@ -26,6 +29,10 @@ class System:
     async def status(self):
         """Get server config."""
         return await self._api.request("rest/system/status")
+
+    async def error(self):
+        """Get server errors."""
+        return await self._api.request("rest/system/error")
 
     async def version(self):
         """Get server version."""

@@ -13,7 +13,7 @@ class API:
 
     DEFAULT_TIMEOUT = 10
 
-    def __init__(  # pylint: disable=too-many-arguments
+    def __init__(  # pylint: disable=too-many-arguments,too-many-positional-arguments
         self,
         api_key,
         url="http://127.0.0.1:8384",

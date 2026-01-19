@@ -1,6 +1,7 @@
 """Entrypoint for the Syncthing REST API."""
 
 from .api import API
+from .config import Config
 from .database import Database
 from .events import Events
 from .system import System
@@ -14,6 +15,7 @@ class Syncthing:
         self._api = API(*args, **kwargs)
 
         self._system = System(self._api)
+        self._config = Config(self._api)
         self._database = Database(self._api)
         self._events = Events(self._api)
 
@@ -26,6 +28,11 @@ class Syncthing:
     def system(self):
         """Get system api."""
         return self._system
+
+    @property
+    def config(self):
+        """Get config api."""
+        return self._config
 
     @property
     def database(self):

@@ -61,7 +61,7 @@ Returns none if ping is successful or raises `syncthing.exceptions.PingError`
 await client.system.ping()
 ```
 
-#### [config](https://docs.syncthing.net/rest/system-config-get.html)
+#### [config](https://docs.syncthing.net/rest/system-config-get.html) (Deprecated, use Config namespace instead)
 Returns a dict with the server config or raises `syncthing.exceptions.SyncthingError`
 
 ```python
@@ -97,7 +97,27 @@ in case if passed devices is unknown to the server, `syncthing.exceptions.Unknow
 
 ```python
 await client.system.resume() # resume all
-await client.system.resume(device_id) # eg: 'MTLMICV-YE72URC-NF4LBO3-2LVPTFZ-LLCZHEZ-2F3OEJS-R6CWZVE-7VXHFQA"
+await client.system.resume(device_id) # eg: 'MTLMICV-YE72URC-NF4LBO3-2LVPTFZ-LLCZHEZ-2F3OEJS-R6CWZVE-7VXHFQA'
+```
+
+### Config namespace
+
+Provides access to the [Config Endpoints](https://docs.syncthing.net/dev/rest.html#config-endpoints)
+
+#### [folders](https://docs.syncthing.net/rest/config.html)
+Returns a dict with the folder config or raises `syncthing.exceptions.SyncthingError`
+
+```python
+await client.config.folders() # get all folders in config
+await client.config.folders(folder_id) # eg: 'GXWxf-3zgnU'
+```
+
+#### [devices](https://docs.syncthing.net/rest/config.html)
+Returns a dict with the device config or raises `syncthing.exceptions.SyncthingError`
+
+```python
+await client.config.devices() # get all folders in config
+await client.config.devices(device_id) # eg: 'MTLMICV-YE72URC-NF4LBO3-2LVPTFZ-LLCZHEZ-2F3OEJS-R6CWZVE-7VXHFQA'
 ```
 
 ### Database namespace

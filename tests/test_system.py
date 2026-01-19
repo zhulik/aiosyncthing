@@ -1,6 +1,7 @@
 """Tests for System."""
 
 import pytest
+import pytest_asyncio
 from expects import be_none, equal, expect
 
 from aiosyncthing import Syncthing
@@ -9,7 +10,7 @@ from aiosyncthing.exceptions import PingError, SyncthingError, UnauthorizedError
 # pylint: disable=redefined-outer-name
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def system(syncthing_client):
     """Return system namespace client."""
     return syncthing_client.system
@@ -54,9 +55,9 @@ async def test_config_happy(system, aioresponses):
     """Test happy path."""
     aioresponses.get(
         "http://127.0.0.1:8384/rest/system/config",
-        payload={"version": 31, "folders": []},
+        payload={"version": 31, "folders": [], "devices": []},
     )
-    expect(await system.config()).to(equal({"version": 31, "folders": []}))
+    expect(await system.config()).to(equal({"version": 31, "folders": [], "devices": []}))
 
 
 @pytest.mark.asyncio
@@ -107,6 +108,18 @@ async def test_status_unknown_exception(system, mocker):
 
     with pytest.raises(SyncthingError):
         await system.status()
+
+
+@pytest.mark.asyncio
+async def test_error_happy(system, aioresponses):
+    """Test happy path."""
+    aioresponses.get(
+        "http://127.0.0.1:8384/rest/system/error",
+        payload={"errors": [{"when": "2014-09-18T12:59:26.549953186+02:00", "message": "This is an error string"}]},
+    )
+    expect(await system.error()).to(
+        equal({"errors": [{"when": "2014-09-18T12:59:26.549953186+02:00", "message": "This is an error string"}]})
+    )
 
 
 @pytest.mark.asyncio
